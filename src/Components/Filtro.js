@@ -15,15 +15,34 @@ const CamposDeFiltro = styled.div`
 margin: 10px;
 `
 
+const ProdutosContainer = styled.div``;
+const ProdutosInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  & > * {
+    padding: 0;
+    margin: 0;
+  }
+`;
+const ProdutosImagens = styled.div`
+    display: grid;
+    margin: 30px 25px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 370px 370px;
+    grid-gap: 20px;
+`;
+
 export default class Filtro extends React.Component {
-    
+
     state = {
         valorMinimo: 0,
         valorMaximo: 100000,
         busca: '',
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
+        console.log(this.state.busca)
         localStorage.setItem('fraseBuscada', JSON.stringify(this.state.busca))
         localStorage.setItem('valorMinimo', JSON.stringify(this.state.valorMinimo))
         localStorage.setItem('valorMaximo', JSON.stringify(this.state.valorMaximo))
