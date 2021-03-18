@@ -40,7 +40,7 @@ margin-bottom: 5px;
         margin-bottom: 10px;
     }
 ` */
-
+class App extends React.Component {
 state = {
   listaDeProdutos: [
     {
@@ -86,7 +86,6 @@ state = {
 /*****A PARTIR DAQUI COLOQUEI ABAIXO UMA OPÇÃO QUE PENSEI CASO HAJA ALTERAÇÃO DO APP*/
 
 export default class CardProduto extends React.Component{
-
 
   adicionarAoCarrinho = () => {
     console.log('deu certo')
@@ -149,6 +148,7 @@ export default class CardProduto extends React.Component{
       />
       <ContainerDeProdutos>{produtos}</ContainerDeProdutos>
       <Carrinho></Carrinho>
+
     </MainContainer>
   }
 }
