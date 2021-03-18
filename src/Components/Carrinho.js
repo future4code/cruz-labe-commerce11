@@ -1,19 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
 
+const MainContainer = styled.div`
+margin: 10px;
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 15%;
+height: 500px;
+border: 1px black solid;
+`
+
 export default class Carrinho extends React.Component{
 
-    state = {
-        produtos: ['produto 1', 'produto 2'],
-    }
-
+    
     render(){
-        const produtosNoCarrinho = this.state.produtos.map((produto)=>{
-            return <p>produto</p>
-        })
-        return <div>
+        
+        return <MainContainer>
             <h3>Carrinho</h3>
-            <div>{produtosNoCarrinho}</div>
-        </div>
+        </MainContainer>
     }
 }

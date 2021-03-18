@@ -19,6 +19,25 @@ justify-items: center;
 row-gap: 10px;
 `
 
+const ProdutosContainer = styled.div``;
+const ProdutosInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  & > * {
+    padding: 0;
+    margin: 0;
+  }
+`;
+const ProdutosImagens = styled.div`
+    display: grid;
+    margin: 30px 25px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 370px 370px;
+    grid-gap: 20px;
+`;
+
+
 class App extends React.Component {
 
   state = {
@@ -54,50 +73,67 @@ class App extends React.Component {
         valor: 75
       }
     ],
-    listaDeBusca:[]
+    listaDeBusca: [],
+    quantidade: 0,
   }
 
-  componentDidMount(){
-    if(this.state.listaDeBusca!==this.state.listaDeProdutos){
-      this.setState({listaDeBusca: this.state.listaDeProdutos})
+  componentDidMount() {
+    if (this.state.listaDeBusca !== this.state.listaDeProdutos) {
+      this.setState({ listaDeBusca: this.state.listaDeProdutos })
     }
   }
 
   adicionarAoCarrinho = () => {
     console.log('deu certo')
   }
-  
-  buscar = () =>{
+
+  buscar = () => {
     let fraseBuscada = JSON.parse(localStorage.getItem('fraseBuscada'))
     let valorMinimo = JSON.parse(localStorage.getItem('valorMinimo'))
     let valorMaximo = JSON.parse(localStorage.getItem('valorMaximo'))
-    console.log(fraseBuscada)
-    console.log('min:', valorMinimo)
-    console.log('max:', valorMaximo)
+    // console.log(fraseBuscada)
+    // console.log('min:', valorMinimo)
+    // console.log('max:', valorMaximo)
     let arrayIntermediaria = [...this.state.listaDeProdutos]
-    let novaLista = arrayIntermediaria.filter((produto)=>{
-      return  produto.nomeProduto.includes(fraseBuscada) && produto.valor>=valorMinimo && produto.valor<=valorMaximo
+    let novaLista = arrayIntermediaria.filter((produto) => {
+      return produto.nomeProduto.includes(fraseBuscada) && produto.valor >= valorMinimo && produto.valor <= valorMaximo
     })
-    this.setState({listaDeBusca: novaLista})
+    this.setState({ listaDeBusca: novaLista })
   }
 
   render() {
-    let produtos = this.state.listaDeBusca.map((produto)=>{
+    let produtos = this.state.listaDeBusca.map((produto) => {
       return <CardProduto
-         linkImagem={produto.linkImagem}
-          nomeProduto={produto.nomeProduto}
-          valor={produto.valor}
-          adicionarAoCarrinho={this.adicionarAoCarrinho}
+        linkImagem={produto.linkImagem}
+        nomeProduto={produto.nomeProduto}
+        valor={produto.valor}
+        adicionarAoCarrinho={this.adicionarAoCarrinho}
       />
     }
-  )
+    )
 
     return <MainContainer>
-      <Filtro 
-      funcaoDeBusca={this.buscar}
-      buscar={this.buscar}
+      <Filtro
+        funcaoDeBusca={this.buscar}
+        buscar={this.buscar}
       />
       <ContainerDeProdutos>{produtos}</ContainerDeProdutos>
+      <Carrinho />
+      {/* <ProdutosContainer>
+                <ProdutosInfo>
+                    <p>{`Quantidade de produtos: ${this.state.quantidade}`}</p>
+                    <div>
+                        <label>{"Ordenação"}</label>
+                        <select>
+                            <option>{"Crescente"}</option>
+                            <option>{"Decrescente"}</option>
+                        </select>
+                    </div>
+                </ProdutosInfo>
+                <ProdutosImagens>
+                    {this.state.listaDeProdutos}
+                </ProdutosImagens>
+            </ProdutosContainer> */}
     </MainContainer>
   }
 }
