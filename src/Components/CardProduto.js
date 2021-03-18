@@ -3,15 +3,7 @@ import styled from 'styled-components'
 import ProdutosImagens from "./ProdutosImagens";
 
 
-const MainContainer = styled.div`
-width: 210px;
-border: 1px solid black;
-display: flex;
-flex-direction: column;
-align-items: center;
-/* height: 300px; */
-border-radius: 10px;
-`
+const ProdutosContainer = styled.div ``;
 
 const ProdutosInfo = styled.div`
   display: flex;
@@ -22,7 +14,7 @@ const ProdutosInfo = styled.div`
     margin: 0;
   }
 `;
-const ProdutosImagens = styled.div`
+const ProdutoImagem = styled.div`
     display: grid;
     margin: 30px 25px;
     grid-template-columns: 1fr 1fr 1fr;
@@ -30,28 +22,56 @@ const ProdutosImagens = styled.div`
     grid-gap: 20px;
 `;
 
-export default class CardProduto extends React.Component{
+export default class Produtos extends React.Component {
+  state = {
+    ordenacao: 'crescente',
+  }
+  
+  handleChangeSelect = (event) => {
+    this.setState({ordenacao: event.target.value})
+  }
 
   render() {
+    // Quantidade de produtos
     let quantidade = 0;
-    let listaProdutos = this.props.listaProdutos.map((produto) => {
+    let listaProdutos;
+
+    // Seleção do tipo de ordenação a fazer na lista de produtos
+    switch(this.state.ordenacao) {
+      case 'crescente':
+        listaProdutos = this.props.listaProdutos.sort((a, b) => a.valor - b.valor)
+        break;
+      case 'decrescente':
+        listaProdutos = this.props.listaProdutos.sort((a, b) => b.valor - a.valor)
+        break;
+      default:
+        listaProdutos = this.props.listaProdutos.sort((a, b) => a.valor - b.valor)
+        break;
+    }
+
+    // Renderizando cada produto da lista de produtos para o componente 'ProdutoImagem'
+
+     listaProdutos = listaProdutos.map((produto) => {
       quantidade++;
       return (
-      <ProdutosImagens
+      <ProdutoImagem key={produto.id}
+        id={produto.id}
         imagem={produto.imagem}
         nome={produto.nome}
-        valor={produto.valor} 
+        valor={produto.valor}
+        onClickBotao={this.props.onClickBotao}
       />)
-    })
+      })
+
     return (
       <ProdutosContainer>
         <ProdutosInfo>
           <p>{`Quantidade de produtos: ${quantidade}`}</p>
           <div>
             <label>{"Ordenação"}</label>
-            <select>
-              <option>{"Crescente"}</option>
-              <option>{"Decrescente"}</option>
+            <select value={this.state.ordenacao} onChange={this.handleChangeSelect}>
+              <option value="crescente">{"Crescente"}</option>
+              <option value="decrescente">{"Decrescente"}</option>
             </select>
           </div>
         </ProdutosInfo>
@@ -62,3 +82,4 @@ export default class CardProduto extends React.Component{
     );
   }
 }
+

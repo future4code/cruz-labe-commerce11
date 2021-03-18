@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ProdutoCarrinho from './ProdutoCarrinho'
 
-const Carrinho = styled.div`
+const ContainerCarrinho = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -11,20 +11,24 @@ const Carrinho = styled.div`
 
 export default class Carrinho extends React.Component {
   render() {
+    let valorTotal = 0;
+    let produtosCarrinho = this.props.produtosCarrinho.map((produto) => {
+      valorTotal += (produto.quantidade * produto.valor);
+      return (
+        <ProdutoCarrinho 
+          id = {produto.id}
+          quantidade={produto.quantidade}
+          nome={produto.nome}
+          remover={this.props.remover}
+        />
+      )
+    })
     return (
-      <Carrinho>
+      <ContainerCarrinho>
         <h3>{"Carrinho"}</h3>
-        <ProdutoCarrinho
-            quantidade="2"
-            nome="Grogu4"
-        />
-        <ProdutoCarrinho
-            quantidade="2"
-            nome="Grogu4"
-        />
-
-        <p>{"Valor total: R$500,00"}</p>
-      </Carrinho>
+          {produtosCarrinho}
+        <p>{`Valor total: R$${valorTotal},00`}</p>
+      </ContainerCarrinho>
     );
   }
 }
