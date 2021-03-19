@@ -2,7 +2,7 @@ README.md
 
 LABE-COMMERCE11
 
-O projeto consiste em um E-commerce de produtos Espaciais, estilo a loja Imaginarium e contem: 
+O projeto consiste em um E-commerce de produtos voltados ao tema Espacial, estilo a loja Imaginarium e contém: 
 
 - Home
     - Mostra todos os produtos
