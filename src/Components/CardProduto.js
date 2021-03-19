@@ -1,8 +1,14 @@
+//COMPONENTE PAI DOS CARDS DE PRODUTOS
+
 import React from 'react'
 import styled from 'styled-components'
 import ProdutosImagens from "./ProdutosImagens";
 
-const ProdutosContainer = styled.div``;
+const ProdutosContainer = styled.div`
+    color:white;
+    padding: 10px;
+`;
+
 const ProdutosInfo = styled.div`
   display: flex;
   justify-content: space-between;
@@ -20,94 +26,29 @@ const Imagens = styled.div`
     grid-gap: 20px;
 `;
 
+const LabelOrdenacao = styled.label`
+margin: 5px;
+`
+
+const Ordenacao = styled.select`
+background-color:black;
+color:white;
+padding: 5px;
+border-radius: 10px 0;
+`
+
 export default class CardProduto extends React.Component {
   state = {
     ordenacao: 'crescente',
   }
 
-  //--------------------------------------------funções para adicionar produto ao carrinho-------------------
-
-  onClickProdutoCarrinho = (novoId, novoNome, novoValor) => {
-    let produtoEncontrado = false;
-    let produtosCarrinho = JSON.parse(localStorage.getItem('produtosCarrinho'))
-    // Atualização do Produto
-    if (!produtoEncontrado) {
-      const novoCarrinho = produtosCarrinho.map((produto) => {
-        if (produto.id === novoId) {
-          let produtoAtualizado;
-          produtoAtualizado = {
-            ...produto,
-            quantidade: produto.quantidade + 1,
-          }
-          produtoEncontrado = true;
-          return produtoAtualizado;
-        }
-        else {
-          return produto;
-        }
-      })
-      if (produtoEncontrado) {
-        produtosCarrinho = novoCarrinho
-      }
-    }
-    // Adição de um novo produto
-    if (!produtoEncontrado) {
-      const novoProduto = {
-        id: novoId,
-        nome: novoNome,
-        valor: novoValor,
-        quantidade: 1,
-      }
-      produtosCarrinho = [...produtosCarrinho, novoProduto]
-    }
-    localStorage.setItem('produtosCarrinho', JSON.stringify(produtosCarrinho))
-  }
-  diminuirProduto = (id) => {
-    let produtosCarrinho = JSON.parse(localStorage.getItem('produtosCarrinho'))
-    const carrinhoNovo = produtosCarrinho.map((produto) => {
-      if (produto.id === id) {
-        const novoProduto = {
-          ...produto,
-          quantidade: produto.quantidade - 1,
-        }
-        return novoProduto
-      } else {
-        return produto;
-      }
-    })
-    produtosCarrinho = carrinhoNovo
-    localStorage.setItem('produtosCarrinho', JSON.stringify(produtosCarrinho))
-  }
-  removerProduto = (id) => {
-    let produtosCarrinho = JSON.parse(localStorage.getItem('produtosCarrinho'))
-    const carrinhoNovo = produtosCarrinho.filter((produto) => {
-      return !(produto.id === id);
-    })
-    produtosCarrinho = carrinhoNovo
-    localStorage.setItem('produtosCarrinho', JSON.stringify(produtosCarrinho))
-  }
-  onClickRemoverProduto = (id) => {
-    let produtosCarrinho = JSON.parse(localStorage.getItem('produtosCarrinho'))
-    let quantidade;
-    produtosCarrinho.forEach((produto) => {
-      if (produto.id === id) {
-        quantidade = produto.quantidade;
-      }
-    })
-    if (quantidade > 1) {
-      this.diminuirProduto(id)
-    }
-    else {
-      this.removerProduto(id)
-    }
-    localStorage.setItem('produtosCarrinho', JSON.stringify(produtosCarrinho))
-  }
-
-  //-------------------------------------------fim das funçõs para adicionar produto ao carrinho------------
-
+  //Função para ordenar os produtos exibidos em ordem crescente ou decrescente de preço:
   handleChangeSelect = (event) => {
     this.setState({ ordenacao: event.target.value })
   }
+
+  //---------------------------------------------INÍCIO DA RENDERIZAÇÃO----------------------------------
+
   render() {
     // Quantidade de produtos
     let quantidade = 0;
@@ -133,19 +74,22 @@ export default class CardProduto extends React.Component {
           imagem={produto.imagem}
           nome={produto.nome}
           valor={produto.valor}
-          onClickBotao={this.onClickProdutoCarrinho}
+          onClickBotao={this.props.onClickBotao}
         />)
     })
+
+    //-------------------------------------------INÍCIO DO JSX----------------------------------------
+
     return (
       <ProdutosContainer>
         <ProdutosInfo>
           <p>Quantidade de produtos: {quantidade}</p>
           <div>
-            <label>{"Ordenação"}</label>
-            <select value={this.state.ordenacao} onChange={this.handleChangeSelect}>
+            <LabelOrdenacao>Ordem de preços:</LabelOrdenacao>
+            <Ordenacao value={this.state.ordenacao} onChange={this.handleChangeSelect}>
               <option value="crescente">{"Crescente"}</option>
               <option value="decrescente">{"Decrescente"}</option>
-            </select>
+            </Ordenacao>
           </div>
         </ProdutosInfo>
         <Imagens>
