@@ -6,7 +6,7 @@ O projeto consiste em um E-commerce de produtos voltados ao tema Espacial, estil
 
 - Home
     - Mostra todos os produtos
-    - Há ordem os produtos por ordem crescente ou decrescente de preço (pode ser na home em si ou junto dos filtros)
+    - Há ordem os produtos por ordem crescente ou decrescente de preço;
     - Produtos:
         - Há um botão que permita adicioná-los ao carrinho;
         - Exibe o nome, preço e imagem em um card;
@@ -15,19 +15,19 @@ O projeto consiste em um E-commerce de produtos voltados ao tema Espacial, estil
     - Mostra todos os produtos e quantidades adicionadas;
     - Capaz de remover itens do carrinho;
     - Mostra o valor total do carrinho;
-- Filtro
+- Filtra
     - Por valor mínimo e máximo;
     - Por nome do produto;
 
 Nome dos integrantes:
-Pessoa Dayane Lang
-Pessoa Leonardo Federmann
-Pessoa Pedro Cysne
+Pessoa - Dayane Lang
+Pessoa - Leonardo Federmann
+Pessoa - Pedro Cysne
 
 Link do Surge: http://labecommerce-pedro-day-leo.surge.sh/
 
 O que funciona:
-Todos os requisitos foram atenditos, incluse os desafios.
+Todos os requisitos foram atenditos, incluse os Desafios.
 
 ![image](https://user-images.githubusercontent.com/77943169/111830500-d00ab280-88cc-11eb-8850-35713b1962ff.png)
 ![image](https://user-images.githubusercontent.com/77943169/111830541-e57fdc80-88cc-11eb-9e9a-8c0e21852662.png)
