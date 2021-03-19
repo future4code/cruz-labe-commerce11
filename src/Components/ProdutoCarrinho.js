@@ -1,35 +1,37 @@
+//COMPONENTE QUE DEFINE A ESTRUTURA DE CADA PRODUTO NO CARRINHO (QUANTIDADE, NOME...)
+
 import React from "react";
 import styled from "styled-components";
-import ProdutoCarrinho from './ProdutoCarrinho'
 
-const ContainerCarrinho = styled.div`
+const ContainerProduto = styled.div`
+    width: 320px;
+    align-self: stretch;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0 10px;
+    justify-content: space-between;
+    margin: 3px 0;
+    & > * {
+        margin: 0;
+        padding: 0;
+    }
 `
-export default class Carrinho extends React.Component {
+const Botao = styled.button`
+background-color:black;
+color:white;
+padding: 5px;
+border-radius: 10px 0;
+cursor: pointer;
+width: 100px;
+height: 25px;
+`
+
+export default class ProdutoCarrinho extends React.Component {
   render() {
-    let valorTotal = 0;
-    let produtosCarrinho = this.props.produtosCarrinho.map((produto) => {
-      valorTotal += (produto.quantidade * produto.valor);
-      return (
-        <ProdutoCarrinho 
-          id = {produto.id}
-          quantidade={produto.quantidade}
-          nome={produto.nome}
-          remover={this.props.remover}
-        />
-      )
-    })
     return (
-      <ContainerCarrinho>
-        <h3>{"Carrinho"}</h3>
-          {produtosCarrinho}
-        <p>{`Valor total: R$${valorTotal},00`}</p>
-      </ContainerCarrinho>
+      <ContainerProduto>
+        <p>{this.props.quantidade}x</p>
+        <p>{this.props.nome}</p>
+        <Botao onClick={this.props.remover}>{"Remover"}</Botao>
+      </ContainerProduto>
     );
   }
 }
-
-
